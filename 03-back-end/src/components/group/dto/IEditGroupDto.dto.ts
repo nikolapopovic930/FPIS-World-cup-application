@@ -11,38 +11,30 @@ ajv.addFormat('custom-date-time', function (dateTimeString: any) {
     return !isNaN(Date.parse(dateTimeString));
 });
 
-interface IEditStadiumDto {
+interface IEditGroupDto {
     name: string;
-    place: string;
 }
 
-interface IEditStadium extends IServiceData {
+interface IEditGroup extends IServiceData {
     name: string;
-    place: string;
 }
 
-const EditStadiumSchema = {
+const EditGroupSchema = {
     type: "object",
     properties: {
         name: {
             type: "string",
-            minLength: 3,
-            maxLength: 64
-        },
-        place: {
-            type: "string",
             minLength: 4,
             maxLength: 64
-        },
+        }
     },
     required: [
-        "name",
-        "place"
+        "name"
     ],
     additionalProperties: false
 }
 
-const EditStadiumValidator = ajv.compile(EditStadiumSchema);
+const EditGroupValidator = ajv.compile(EditGroupSchema);
 
-export default IEditStadium;
-export { EditStadiumValidator, IEditStadiumDto };
+export default IEditGroup;
+export { EditGroupValidator, IEditGroupDto };
