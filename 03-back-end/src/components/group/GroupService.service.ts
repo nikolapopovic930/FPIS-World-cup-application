@@ -19,14 +19,20 @@ class GroupService extends BaseService<GroupModel, IGroupAdapterOptions>{
         return "group";
     }
 
-    protected async adaptToModel(data: any): Promise<GroupModel> {
+    protected async adaptToModel(data: any, options: IGroupAdapterOptions): Promise<GroupModel> {
+        return new Promise(async (resolve) => {
         const group: GroupModel = new GroupModel();
 
         group.groupId = +data?.group_id;
         group.name = data?.name;
+        
+        
 
-        return group;
+
+        resolve(group);
+        });
     }
+
 
     public async add(data: IAddGroup): Promise<GroupModel> {
         return this.baseAdd(data, DefaultGroupAdapterOptions);

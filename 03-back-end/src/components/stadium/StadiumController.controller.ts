@@ -2,16 +2,12 @@ import StadiumService, { DefaultStadiumAdapterOptions } from './StadiumService.s
 import { Request, Response } from 'express';
 import { AddStadiumValidator, IAddStadiumDto } from './dto/IAddStadiumDto.dto';
 import { EditStadiumValidator, IEditStadiumDto } from './dto/IEditStadiumDto.dto';
-class StadiumController {
-    private stadiumService: StadiumService;
-
-    constructor(stadiumService: StadiumService) {
-        this.stadiumService = stadiumService;
-    }
+import BaseController from '../../common/BaseController';
+class StadiumController extends BaseController {
 
     async getAll(req: Request, res: Response) {
 
-        this.stadiumService.getAll(DefaultStadiumAdapterOptions)
+        this.services.stadium.getAll(DefaultStadiumAdapterOptions)
             .then(result => {
                 res.send(result);
             }).catch(error => {
@@ -23,7 +19,7 @@ class StadiumController {
 
         const id: number = +req.params?.id;
 
-        this.stadiumService.getById(id, DefaultStadiumAdapterOptions)
+        this.services.stadium.getById(id, DefaultStadiumAdapterOptions)
             .then(result => {
 
                 if (result === null) {
@@ -43,7 +39,7 @@ class StadiumController {
             return res.status(400).send(AddStadiumValidator.errors);
         }
 
-        this.stadiumService.add({
+        this.services.stadium.add({
             name: data.name,
             place: data.place
         })
@@ -64,13 +60,13 @@ class StadiumController {
             return res.status(400).send(EditStadiumValidator.errors);
         }
 
-        this.stadiumService.getById(id, {})
+        this.services.stadium.getById(id, {})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
                 }
 
-                this.stadiumService.editById(id, {
+                this.services.stadium.editById(id, {
                     name: data.name,
                     place: data.place
                 })
@@ -92,13 +88,13 @@ class StadiumController {
     async delete(req: Request, res: Response) {
         const id: number = +req.params?.id;
 
-        this.stadiumService.getById(id, {})
+        this.services.stadium.getById(id, {})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
                 }
 
-                this.stadiumService.deleteById(id)
+                this.services.stadium.deleteById(id)
                     .then(result => {
                         res.send('This stadium has been deleted!');
                     })

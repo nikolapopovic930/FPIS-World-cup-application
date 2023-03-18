@@ -2,16 +2,24 @@ import IModel from './IModel.interface';
 import * as mysql2 from "mysql2/promise";
 import IAdapterOptions from './IAdapterOptions.interface';
 import IServiceData from './IServiceData.interface';
+import IApplicationResources, { Iservices } from './IApplicationResources.interface';
 
 abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IAdapterOptions>{
     private _db: mysql2.Connection;
+    private serviceInstances: Iservices;
 
-    constructor(db: mysql2.Connection) {
-        this._db = db;
+
+    constructor(resources: IApplicationResources) {
+        this._db = resources.databaseConnection;
+        this.serviceInstances = resources.services;
     }
 
     protected get db(): mysql2.Connection {
         return this._db;
+    }
+
+    protected get services(): Iservices {
+        return this.serviceInstances;
     }
 
     abstract tableName(): string;

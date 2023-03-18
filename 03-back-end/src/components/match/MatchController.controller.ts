@@ -1,14 +1,13 @@
-import GroupService, { DefaultGroupAdapterOptions } from './GroupService.service';
+import MatchService, { DefaultMatchAdapterOptions } from './MatchService.service';
 import { Request, Response } from 'express';
-import { AddGroupValidator, IAddGroupDto } from './dto/IAddGroupDto.dto';
-import { EditGroupValidator, IEditGroupDto } from './dto/IEditGroupDto.dto';
+import { AddMatchValidator, IAddMatchDto } from './dto/IAddMatchDto.dto';
+import { EditMatchValidator, IEditMatchDto } from './dto/IEditMatchDto.dto';
 import BaseController from '../../common/BaseController';
-class GroupController extends BaseController{
-    
+class MatchController extends BaseController {
 
     async getAll(req: Request, res: Response) {
 
-        this.services.group.getAll(DefaultGroupAdapterOptions)
+        this.services.match.getAll(DefaultMatchAdapterOptions)
             .then(result => {
                 res.send(result);
             }).catch(error => {
@@ -20,7 +19,7 @@ class GroupController extends BaseController{
 
         const id: number = +req.params?.id;
 
-        this.services.group.getById(id, DefaultGroupAdapterOptions)
+        this.services.match.getById(id, DefaultMatchAdapterOptions)
             .then(result => {
 
                 if (result === null) {
@@ -34,14 +33,19 @@ class GroupController extends BaseController{
     }
 
     async add(req: Request, res: Response) {
-        const data = req.body as IAddGroupDto;
+        const data = req.body as IAddMatchDto;
 
-        if (!AddGroupValidator(data)) {
-            return res.status(400).send(AddGroupValidator.errors);
+        if (!AddMatchValidator(data)) {
+            return res.status(400).send(AddMatchValidator.errors);
         }
 
-        this.services.group.add({
-            name: data.name,
+        this.services.match.add({
+            first_team: data.firstTeam,
+            second_team: data.secondTeam,
+            first_team_goals: data.firstTeamGoals,
+            second_team_goals: data.secondTeamGoals,
+            stadium_id: data.stadiumId,
+            is_surrendered: data.isSurrendered
         })
             .then(result => {
                 res.send(result);
@@ -54,20 +58,25 @@ class GroupController extends BaseController{
 
     async edit(req: Request, res: Response) {
         const id: number = +req.params?.id;
-        const data = req.body as IEditGroupDto;
+        const data = req.body as IEditMatchDto;
 
-        if (!EditGroupValidator(data)) {
-            return res.status(400).send(EditGroupValidator.errors);
+        if (!EditMatchValidator(data)) {
+            return res.status(400).send(EditMatchValidator.errors);
         }
 
-        this.services.group.getById(id, {loadTeams:false})
+        this.services.match.getById(id, {})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
                 }
 
-                this.services.group.editById(id, {
-                    name: data.name,
+                this.services.match.editById(id, {
+                    first_team: data.firstTeam,
+                    second_team: data.secondTeam,
+                    first_team_goals: data.firstTeamGoals,
+                    second_team_goals: data.secondTeamGoals,
+                    stadium_id: data.stadiumId,
+                    is_surrendered: data.isSurrendered
                 })
                     .then(result => {
                         res.send(result);
@@ -87,15 +96,15 @@ class GroupController extends BaseController{
     async delete(req: Request, res: Response) {
         const id: number = +req.params?.id;
 
-        this.services.group.getById(id, {loadTeams:false})
+        this.services.match.getById(id, {})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
                 }
 
-                this.services.group.deleteById(id)
+                this.services.match.deleteById(id)
                     .then(result => {
-                        res.send('This group has been deleted!');
+                        res.send('This match has been deleted!');
                     })
                     .catch(error => {
                         res.status(400).send(error?.message);
@@ -110,4 +119,4 @@ class GroupController extends BaseController{
     }
 }
 
-export default GroupController;
+export default MatchController;

@@ -1,6 +1,8 @@
 import IConfig from "./common/IConfig.interface";
 import StadiumRouter from './components/stadium/StadiumRouter.router';
 import GroupRouter from './components/group/GroupRouter.router';
+import TeamRouter from "./components/team/TeamRouter.router";
+import MatchRouter from './components/match/MatchRouter.router';
 
 const DevConfig: IConfig = {
     server: {
@@ -17,7 +19,9 @@ const DevConfig: IConfig = {
     },
     routers: [
         new StadiumRouter(),
-        new GroupRouter()
+        new GroupRouter(),
+        new TeamRouter(),
+        new MatchRouter()
     ]
 }
 

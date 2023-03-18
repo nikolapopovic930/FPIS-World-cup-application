@@ -1,15 +1,15 @@
-import GroupService, { DefaultGroupAdapterOptions } from './GroupService.service';
+import TeamService, { DefaultTeamAdapterOptions } from './TeamService.service';
 import { Request, Response } from 'express';
-import { AddGroupValidator, IAddGroupDto } from './dto/IAddGroupDto.dto';
-import { EditGroupValidator, IEditGroupDto } from './dto/IEditGroupDto.dto';
+import { AddTeamValidator, IAddTeamDto } from './dto/IAddTeamDto.dto';
+import { EditTeamValidator, IEditTeamDto } from './dto/IEditTeamDto.dto';
 import BaseController from '../../common/BaseController';
-class GroupController extends BaseController{
-    
+class TeamController extends BaseController {
 
     async getAll(req: Request, res: Response) {
 
-        this.services.group.getAll(DefaultGroupAdapterOptions)
+        this.services.team.getAll(DefaultTeamAdapterOptions)
             .then(result => {
+                console.log(result);
                 res.send(result);
             }).catch(error => {
                 res.status(500).send(error?.message);
@@ -20,7 +20,7 @@ class GroupController extends BaseController{
 
         const id: number = +req.params?.id;
 
-        this.services.group.getById(id, DefaultGroupAdapterOptions)
+        this.services.team.getById(id, DefaultTeamAdapterOptions)
             .then(result => {
 
                 if (result === null) {
@@ -34,14 +34,16 @@ class GroupController extends BaseController{
     }
 
     async add(req: Request, res: Response) {
-        const data = req.body as IAddGroupDto;
+        const data = req.body as IAddTeamDto;
 
-        if (!AddGroupValidator(data)) {
-            return res.status(400).send(AddGroupValidator.errors);
+        if (!AddTeamValidator(data)) {
+            return res.status(400).send(AddTeamValidator.errors);
         }
 
-        this.services.group.add({
+        this.services.team.add({
             name: data.name,
+            flag: data.flag,
+            group_id: data.groupId
         })
             .then(result => {
                 res.send(result);
@@ -54,20 +56,22 @@ class GroupController extends BaseController{
 
     async edit(req: Request, res: Response) {
         const id: number = +req.params?.id;
-        const data = req.body as IEditGroupDto;
+        const data = req.body as IEditTeamDto;
 
-        if (!EditGroupValidator(data)) {
-            return res.status(400).send(EditGroupValidator.errors);
+        if (!EditTeamValidator(data)) {
+            return res.status(400).send(EditTeamValidator.errors);
         }
 
-        this.services.group.getById(id, {loadTeams:false})
+        this.services.team.getById(id, {loadGroup: true})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
                 }
 
-                this.services.group.editById(id, {
+                this.services.team.editById(id, {
                     name: data.name,
+                    flag: data.flag,
+                    group_id: data.groupId
                 })
                     .then(result => {
                         res.send(result);
@@ -87,15 +91,15 @@ class GroupController extends BaseController{
     async delete(req: Request, res: Response) {
         const id: number = +req.params?.id;
 
-        this.services.group.getById(id, {loadTeams:false})
+        this.services.team.getById(id, {loadGroup: true})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
                 }
 
-                this.services.group.deleteById(id)
+                this.services.team.deleteById(id)
                     .then(result => {
-                        res.send('This group has been deleted!');
+                        res.send('This team has been deleted!');
                     })
                     .catch(error => {
                         res.status(400).send(error?.message);
@@ -108,6 +112,35 @@ class GroupController extends BaseController{
             });
 
     }
+
+    async getAllTeamsByGroupId(req: Request, res: Response) {
+        const groupId: number = +req.params?.gid;
+
+        this.services.group.getById(groupId, {loadTeams:true}).then(result => {
+            if (result === null) {
+                return res.sendStatus(404).send("Group not found");
+            }
+
+            this.services.team.getAllByGroupId(groupId,{
+            loadGroup:true
+                
+            })
+        
+        .then(result => {
+            res.send(result);
+        })
+        .catch(error => {
+            res.status(500).send(error?.message);
+
+        })  
+        
+    })
+
+        .catch(error => {
+            res.status(500).send(error?.message);
+        });
+
+    }
 }
 
-export default GroupController;
+export default TeamController;
