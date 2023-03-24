@@ -41,7 +41,8 @@ class StadiumController extends BaseController {
 
         this.services.stadium.add({
             name: data.name,
-            place: data.place
+            place: data.place,
+            picture: data.picture
         })
             .then(result => {
                 res.send(result);
@@ -68,7 +69,8 @@ class StadiumController extends BaseController {
 
                 this.services.stadium.editById(id, {
                     name: data.name,
-                    place: data.place
+                    place: data.place,
+                    picture: data.picture
                 })
                     .then(result => {
                         res.send(result);

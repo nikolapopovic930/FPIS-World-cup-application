@@ -25,6 +25,7 @@ class StadiumService extends BaseService<StadiumModel, IStadiumAdapterOptions>{
         stadium.stadiumId = +data?.stadium_id;
         stadium.name = data?.name;
         stadium.place = data?.place;
+        stadium.picture = data?.picture;
 
         return stadium;
     }

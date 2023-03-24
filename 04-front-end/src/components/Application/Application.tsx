@@ -1,22 +1,32 @@
 import React from 'react';
-import './Application.css';
+import './Application.sass';
+import Menu from '../menu/menu';
+import { BrowserRouter, Routes, Route, Router } from 'react-router-dom';
+import Stadium from '../stadium/stadium';
+import Home from './Home/Home';
 
 function Application() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div className="backround">
+    <div className="bigcontainer">
+  
+    <BrowserRouter>
+    <Menu />
+      <Routes>
+        <Route path="/" element= { <Home /> } />
+        <Route path="/stadium" element= { <Stadium /> }/>
+
+
+
+      </Routes>
+      
+    </BrowserRouter>
+    
+    
+
+    </div>
+    
     </div>
   );
 }
