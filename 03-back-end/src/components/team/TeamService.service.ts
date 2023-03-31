@@ -29,9 +29,10 @@ class TeamService extends BaseService<TeamModel, ITeamAdapterOptions>{
             team.flag = data?.flag;
             team.groupId = +data?.group_id;
 
-            console.log(options.loadGroup);
             if (options.loadGroup) {
-                team.group = await this.services.group.getById(team.groupId, {});
+                team.group = await this.services.group.getById(team.groupId, {
+                    loadTeams:false
+                });
         }
     
             resolve(team);

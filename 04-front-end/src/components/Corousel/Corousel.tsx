@@ -13,7 +13,7 @@ return (
               alt="First slide"
             />
             <Carousel.Caption>
-              <h1 className="black">2022 Word cup winners</h1>
+              <h1 className="black">2022 Word cup champions</h1>
               <p className="black">Argentina beat France on penalties to win World Cup after stunning final</p>
             </Carousel.Caption>
             </div>

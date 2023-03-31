@@ -6,7 +6,7 @@ import IAddGroup from './dto/IAddGroupDto.dto';
 import IEditGroup from './dto/IEditGroupDto.dto';
 
 interface IGroupAdapterOptions extends IAdapterOptions {
-
+    
 }
 
 const DefaultGroupAdapterOptions: IGroupAdapterOptions = {
@@ -25,10 +25,8 @@ class GroupService extends BaseService<GroupModel, IGroupAdapterOptions>{
 
         group.groupId = +data?.group_id;
         group.name = data?.name;
-        
-        
 
-
+        
         resolve(group);
         });
     }

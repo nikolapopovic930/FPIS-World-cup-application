@@ -1,6 +1,6 @@
 export default interface IStadium {
     stadiumId: number,
     name: string,
-    place: string,
+    capacity: string,
     picture: string
 }

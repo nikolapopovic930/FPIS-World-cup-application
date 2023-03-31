@@ -6,10 +6,13 @@ import IAddMatch from './dto/IAddMatchDto.dto';
 import IEditMatch from './dto/IEditMatchDto.dto';
 
 interface IMatchAdapterOptions extends IAdapterOptions {
-
+    loadTeamsData: boolean;
+    loadStadiumData: boolean;
 }
 
 const DefaultMatchAdapterOptions: IMatchAdapterOptions = {
+    loadTeamsData: false,
+    loadStadiumData: false
 
 }
 
@@ -19,7 +22,7 @@ class MatchService extends BaseService<MatchModel, IMatchAdapterOptions>{
         return "match";
     }
 
-    protected async adaptToModel(data: any): Promise<MatchModel> {
+    protected async adaptToModel(data: any, options:IMatchAdapterOptions): Promise<MatchModel> {
         const match: MatchModel = new MatchModel();
 
         match.matchId = +data?.match_id;
@@ -27,8 +30,23 @@ class MatchService extends BaseService<MatchModel, IMatchAdapterOptions>{
         match.secondTeam = +data?.second_team;
         match.firstTeamGoals = +data?.first_team_goals;
         match.secondTeamGoals = +data?.second_team_goals;
+        match.date = data?.date;
         match.stadiumId = +data?.stadium_id;
         match.isSurrendered = +data?.is_surrendered;
+
+        if(options.loadTeamsData) {
+
+            match.firstTeamData = await this.services.team.getById(match.firstTeam, {loadGroup:true})
+            match.secondTeamData = await this.services.team.getById(match.secondTeam, {loadGroup:true})
+        }
+
+        if(options.loadStadiumData) {
+
+            match.stadiumData = await this.services.stadium.getById(match.stadiumId, {})
+    
+        }
+
+
 
         return match;
     }

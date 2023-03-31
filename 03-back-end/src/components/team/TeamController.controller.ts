@@ -9,7 +9,6 @@ class TeamController extends BaseController {
 
         this.services.team.getAll(DefaultTeamAdapterOptions)
             .then(result => {
-                console.log(result);
                 res.send(result);
             }).catch(error => {
                 res.status(500).send(error?.message);

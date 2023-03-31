@@ -15,7 +15,7 @@ const DevConfig: IConfig = {
         password: "singidunum",
         database: "fpis_world_cup_db",
         charset: "utf8",
-        timezone: "+01:00"
+        timezone: "+00:00"
     },
     routers: [
         new StadiumRouter(),

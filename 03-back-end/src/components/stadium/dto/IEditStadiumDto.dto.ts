@@ -13,13 +13,13 @@ ajv.addFormat('custom-date-time', function (dateTimeString: any) {
 
 interface IEditStadiumDto {
     name: string;
-    place: string;
+    capacity: string;
     picture: string;
 }
 
 interface IEditStadium extends IServiceData {
     name: string;
-    place: string;
+    capacity: string;
     picture: string;
 }
 
@@ -31,7 +31,7 @@ const EditStadiumSchema = {
             minLength: 3,
             maxLength: 64
         },
-        place: {
+        capacity: {
             type: "string",
             minLength: 4,
             maxLength: 64
@@ -44,7 +44,7 @@ const EditStadiumSchema = {
     },
     required: [
         "name",
-        "place",
+        "capacity",
         "picture"
     ],
     additionalProperties: false

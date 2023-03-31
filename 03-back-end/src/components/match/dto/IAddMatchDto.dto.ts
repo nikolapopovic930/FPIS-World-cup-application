@@ -16,6 +16,7 @@ interface IAddMatchDto {
     secondTeam: number;
     firstTeamGoals: number;
     secondTeamGoals: number;
+    date: Date;
     stadiumId: number;
     isSurrendered: number;
 }
@@ -25,6 +26,7 @@ interface IAddMatch extends IServiceData {
     second_team: number;
     first_team_goals: number;
     second_team_goals: number;
+    date: Date;
     stadium_id: number;
     is_surrendered: number;
 }
@@ -44,6 +46,9 @@ const AddMatchSchema = {
         secondTeamGoals: {
             type: "number"
         },
+        date:{
+           
+        },
         stadiumId: {
             type: "number"
         },
@@ -54,8 +59,7 @@ const AddMatchSchema = {
     required: [
         "firstTeam",
         "secondTeam",
-        "firstTeamGoals",
-        "secondTeamGoals",
+        "date",
         "stadiumId",
         "isSurrendered"
     ],

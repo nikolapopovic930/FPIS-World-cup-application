@@ -7,7 +7,7 @@ class MatchController extends BaseController {
 
     async getAll(req: Request, res: Response) {
 
-        this.services.match.getAll(DefaultMatchAdapterOptions)
+        this.services.match.getAll({loadTeamsData:true, loadStadiumData: true})
             .then(result => {
                 res.send(result);
             }).catch(error => {
@@ -44,6 +44,7 @@ class MatchController extends BaseController {
             second_team: data.secondTeam,
             first_team_goals: data.firstTeamGoals,
             second_team_goals: data.secondTeamGoals,
+            date: data.date,
             stadium_id: data.stadiumId,
             is_surrendered: data.isSurrendered
         })
@@ -64,7 +65,7 @@ class MatchController extends BaseController {
             return res.status(400).send(EditMatchValidator.errors);
         }
 
-        this.services.match.getById(id, {})
+        this.services.match.getById(id, {loadTeamsData:false, loadStadiumData: true})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
@@ -75,8 +76,10 @@ class MatchController extends BaseController {
                     second_team: data.secondTeam,
                     first_team_goals: data.firstTeamGoals,
                     second_team_goals: data.secondTeamGoals,
+                    date: data.date,
                     stadium_id: data.stadiumId,
-                    is_surrendered: data.isSurrendered
+                    is_surrendered: data.isSurrendered,
+                    
                 })
                     .then(result => {
                         res.send(result);
@@ -96,7 +99,7 @@ class MatchController extends BaseController {
     async delete(req: Request, res: Response) {
         const id: number = +req.params?.id;
 
-        this.services.match.getById(id, {})
+        this.services.match.getById(id, {loadTeamsData:false, loadStadiumData: true})
             .then(result => {
                 if (result === null) {
                     return res.sendStatus(404);
