@@ -7,7 +7,7 @@ class TeamController extends BaseController {
 
     async getAll(req: Request, res: Response) {
 
-        this.services.team.getAll(DefaultTeamAdapterOptions)
+        this.services.team.getAll({loadGroup: false})
             .then(result => {
                 res.send(result);
             }).catch(error => {
@@ -41,7 +41,6 @@ class TeamController extends BaseController {
 
         this.services.team.add({
             name: data.name,
-            flag: data.flag,
             group_id: data.groupId
         })
             .then(result => {
@@ -69,7 +68,6 @@ class TeamController extends BaseController {
 
                 this.services.team.editById(id, {
                     name: data.name,
-                    flag: data.flag,
                     group_id: data.groupId
                 })
                     .then(result => {
@@ -140,6 +138,9 @@ class TeamController extends BaseController {
         });
 
     }
+
+
+    
 }
 
 export default TeamController;

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Stadium from '../stadium/stadium';
 import Home from './Home/Home';
 import Matches from '../Matches/Matches';
+import Groups from '../Groups/Groups';
 
 function Application() {
   return (
@@ -18,6 +19,7 @@ function Application() {
         <Route path="/" element= { <Home /> } />
         <Route path="/stadium" element= { <Stadium /> }/>
         <Route path="/matches" element= { <Matches /> }/>
+        <Route path="/groups" element= { <Groups /> }/>
 
 
 

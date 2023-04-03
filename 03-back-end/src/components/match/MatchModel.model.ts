@@ -1,6 +1,7 @@
 import IModel from '../../common/IModel.interface';
+import StadiumModel from '../stadium/StadiumModel.model';
 import TeamModel from '../team/TeamModel.model';
-import StadiumModel from '../../../dist/components/stadium/StadiumModel.model';
+
 
 class MatchModel implements IModel {
     matchId: number;

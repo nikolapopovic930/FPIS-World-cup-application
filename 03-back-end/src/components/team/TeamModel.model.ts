@@ -4,10 +4,9 @@ import GroupModel from '../group/GroupModel.model';
 class TeamModel implements IModel {
     teamId: number;
     name: string;
-    flag: string;
     groupId: number;
 
-    group?: GroupModel = null;
+    group?: GroupModel ;
 }
 
 export default TeamModel;

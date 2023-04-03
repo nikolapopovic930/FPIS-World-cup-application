@@ -101,6 +101,30 @@ abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IA
         )
     }
 
+    protected async getAllFromTableByFieldNameAndValue<OwnReturnType>(tableName: string, fieldName: string, value: any): Promise<OwnReturnType[]> {
+        return new Promise((resolve, reject) => {
+            const sql: string = `SELECT * FROM \`${tableName}\` WHERE ${fieldName} = ?;`;
+            this.db.execute(sql, [value])
+                .then(async ([rows]) => {
+
+                    if (rows === undefined) {
+                        return resolve([]);
+                    }
+
+                    const items: OwnReturnType[] = [];
+
+                    for (const row of rows as mysql2.RowDataPacket[]) {
+                        items.push(row as OwnReturnType)
+                    }
+
+                    resolve(items);
+                }).catch(error => {
+                    console.log(reject(error));
+                });
+        })
+    }
+    
+
     protected async baseAdd(data: IServiceData, options: AdapterOptions): Promise<ReturnModel> {
 
         const tableName = this.tableName();

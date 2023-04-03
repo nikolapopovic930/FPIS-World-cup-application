@@ -53,7 +53,7 @@ export default function MatchesPreview(props: IMatchPreviewProperties) {
                             <span className={"match-score-number " + (props.match.secondTeamGoals > props.match.firstTeamGoals ? 'match-score-number--leading' : '') }>{props.match.secondTeamGoals}</span>
                         </div>
                         <div className="match-referee">
-						Stadium: <strong>{props.match.stadiumData.name}</strong>
+						<strong>{props.match.stadiumData.name}</strong>
 					</div>
                     </div>
                 </div>
@@ -70,6 +70,7 @@ export default function MatchesPreview(props: IMatchPreviewProperties) {
                 </div>
             </div>
         </div>
+        
     </div>
     </div>    
     

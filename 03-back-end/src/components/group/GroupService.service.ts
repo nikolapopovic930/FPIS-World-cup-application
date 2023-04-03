@@ -6,11 +6,11 @@ import IAddGroup from './dto/IAddGroupDto.dto';
 import IEditGroup from './dto/IEditGroupDto.dto';
 
 interface IGroupAdapterOptions extends IAdapterOptions {
-    
+    loadTeams: boolean
 }
 
 const DefaultGroupAdapterOptions: IGroupAdapterOptions = {
-
+    loadTeams: false
 }
 
 class GroupService extends BaseService<GroupModel, IGroupAdapterOptions>{
@@ -25,6 +25,10 @@ class GroupService extends BaseService<GroupModel, IGroupAdapterOptions>{
 
         group.groupId = +data?.group_id;
         group.name = data?.name;
+
+        if (options.loadTeams) {
+            group.teams = await this.services.team.getAllByGroupId2(group.groupId, {loadGroup: false});
+        }
 
         
         resolve(group);
@@ -43,6 +47,8 @@ class GroupService extends BaseService<GroupModel, IGroupAdapterOptions>{
     public async deleteById(groupId: number): Promise<boolean> {
         return this.baseDelete(groupId);
     }
+
+    
 }
 
 export default GroupService;

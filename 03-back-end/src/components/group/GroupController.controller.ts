@@ -8,7 +8,7 @@ class GroupController extends BaseController{
 
     async getAll(req: Request, res: Response) {
 
-        this.services.group.getAll(DefaultGroupAdapterOptions)
+        this.services.group.getAll({loadTeams: true})
             .then(result => {
                 res.send(result);
             }).catch(error => {

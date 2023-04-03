@@ -4,6 +4,7 @@ import BaseService from '../../common/BaseService';
 import IAdapterOptions from '../../common/IAdapterOptions.interface';
 import IAddTeam from './dto/IAddTeamDto.dto';
 import IEditTeam from './dto/IEditTeamDto.dto';
+import { IGroupTeams } from "../group/GroupModel.model";
 
 interface ITeamAdapterOptions extends IAdapterOptions {
     loadGroup: boolean
@@ -26,7 +27,6 @@ class TeamService extends BaseService<TeamModel, ITeamAdapterOptions>{
 
             team.teamId = +data?.team_id;
             team.name = data?.name;
-            team.flag = data?.flag;
             team.groupId = +data?.group_id;
 
             if (options.loadGroup) {
@@ -71,6 +71,32 @@ class TeamService extends BaseService<TeamModel, ITeamAdapterOptions>{
 
     async getAllByGroupId(groupId: number, options: ITeamAdapterOptions) {
         return this.getAllByFieldNameAndValue("group_id", groupId, options);
+    }
+
+    public async getAllByGroupId2(groupId: number, options: ITeamAdapterOptions): Promise<IGroupTeams[]> {
+        return new Promise((resolve, reject) => {
+            this.getAllByFieldNameAndValue("group_id", groupId, options)
+                .then(async result => {
+                    if (result.length === 0) {
+                        return resolve([]);
+                    }
+
+                    const teams: IGroupTeams[] = await Promise.all(result.map(async row => {
+                        return {
+                            team: {
+                                teamId: row.teamId,
+                                name: (await this.getById(row.teamId, {loadGroup: false})).name,
+                                groupId: (await (this.getById(row.teamId, {loadGroup: false}))).groupId
+                            },
+                        }
+                    }));
+
+                    resolve(teams);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        })
     }
 }
 

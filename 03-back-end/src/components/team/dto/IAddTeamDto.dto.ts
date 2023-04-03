@@ -13,13 +13,11 @@ ajv.addFormat('custom-date-time', function (dateTimeString: any) {
 
 interface IAddTeamDto {
     name: string;
-    flag: string;
     groupId: number;
 }
 
 interface IAddTeam extends IServiceData {
     name: string;
-    flag: string;
     group_id: number;
 }
 
@@ -31,18 +29,12 @@ const AddTeamSchema = {
             minLength: 4,
             maxLength: 64
         },
-        flag: {
-            type: "string",
-            minLength: 4,
-            maxLength: 64
-        },
         groupId: {
             type: "number"
         },
     },
     required: [
         "name",
-        "flag",
         "groupId"
     ],
     additionalProperties: false
