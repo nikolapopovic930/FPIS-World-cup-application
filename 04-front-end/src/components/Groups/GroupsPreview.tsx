@@ -1,30 +1,51 @@
+import { Link } from "react-router-dom";
 import IGroup from "../../models/IGroup.model";
 import './GroupsPreview.scss';
+import axios from "axios";
 
 export interface IGroupPreviewProperties {
     group: IGroup;
 }
 
+const handleDeleteGroup = async (groupId: number) => {
+    try {
+        await axios.delete(`http://localhost:10000/api/group/${groupId}`);
+        
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+const handleDeleteTeam = async (teamId: number) => {
+    try {
+        await axios.delete(`http://localhost:10000/api/team/${teamId}`);
+		
+    } catch (error) {
+        console.log(error)
+    }
+};
 
 export default function GroupsPreview(props: IGroupPreviewProperties) {
 
-    props.group.teams.forEach(teams => console.log(teams.name));
-    //console.log(props.group.teams[0])
+    props.group.teams.forEach(t => console.log("data.name : " + props.group.name + ": teams : " + t.name));
+    
     return (
 
     <div className="white-backround">
         
         <div className="name">
-        <h1 className = "group-name">{props.group.name}</h1>
+        <td><h1 className = "group-name">{props.group.name}</h1></td>
+		<td><Link to={`/editgroup/${props.group.groupId}`}><img className="icons" src="images/edit.png" alt="Edit"/></Link></td>
+		<td><img className="icons" src="images/delete.png" alt="Delete" onClick={() => handleDeleteGroup(props.group.groupId).then(() => window.location.reload())}/></td> 
         </div>
         
-        <div className="table-div">
-
-        <div className="ptable">
-					<table width="900px">
+			<div className="table-div">
+				<table width="900px">
+					<thead>
 						<tr className="col">
 							<th>#</th>
 							<th>Team</th>
+							<th></th>
 							<th>GP</th>
 							<th>W</th>
 							<th>D</th>
@@ -32,52 +53,32 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
 							<th>GD</th>
 							<th>PTS</th>
 						</tr>
-						<tr className="wpos">
-							<td>1</td>
-							<td>{ props.group.teams.map(team => {return <span key={ "teams-" + props.group.groupId + "-" + team.teamId }>{ team.name }</span>}) }</td>
-							<td>2</td>
-							<td>2</td>
-							<td>0</td>
-							<td>0</td>
-							<td>5</td>
-							<td>6</td>
-						</tr>
-						<tr className="wpos">
-							<td>2</td>
-							<td>YOLO FC</td>
-							<td>2</td>
-							<td>2</td>
-							<td>0</td>
-							<td>0</td>
-							<td>4</td>
-							<td>6</td>
-						</tr>
-						<tr className="wpos">
-							<td>3</td>
-							<td>Majestic A</td>
-							<td>2</td>
-							<td>1</td>
-							<td>1</td>
-							<td>0</td>
-							<td>4</td>
-							<td>4</td>
-						</tr>
-						<tr className="wpos">
-							<td>4</td>
-							<td>Fenris</td>
-							<td>2</td>
-							<td>1</td>
-							<td>1</td>
-							<td>0</td>
-							<td>1</td>
-							<td>4</td>
-						</tr>
-		
-					</table>
-        </div>	
-										
+					</thead>
+					<tbody>
+						{props.group.teams.map((team, index) => (
+							<tr key={team.teamId}>
+								<td>{index + 1}</td>
+								<td>{team.name}</td>
+								<td><img className="iconsforgroup" src={"images/icons/" + team.name.toLowerCase().split(' ').join('') +".png"} alt = "flag"/></td>
+								<td>{team.gamesPlayed}</td>
+								<td>{team.wins}</td>
+								<td>{team.draws}</td>
+								<td>{team.losses}</td>
+								<td>{team.goalDifference}</td>
+								<td>{team.points}</td>
+								<td><Link to={"/"}><img className="icons" src="images/edit.png" alt="Edit"/></Link></td>
+								<td><img className="icons" src="images/delete.png" alt="Delete" onClick={() => handleDeleteTeam(team.teamId).then(() => window.location.reload())}/></td>
+								
+							</tr>
+							
+						))}
 						
-        </div>                
+					</tbody>
+				</table>
+			</div>
+			<div className="plus">
+			<Link to={`/addteamingroup/${props.group.groupId}`}><img className="plus-img" src="images/plus.png" alt="Add"/></Link>
+			</div>                
         </div>  
     
     );

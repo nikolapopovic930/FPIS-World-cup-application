@@ -3,9 +3,10 @@ import IGroup from '../../models/IGroup.model';
 import GroupsPreview from "./GroupsPreview";
 import './GroupsPreview.scss';
 import { Link } from 'react-router-dom';
+import GroupsForHomePreview from "./GroupsForHomePreview";
 
 
-export default function Groups(){
+export default function GroupsForHome(){
     const [ groups, setGroups ] = useState<IGroup[]>([]);
     const [ errorMessage, setErrorMessage ] = useState<string>("");
 
@@ -26,9 +27,9 @@ export default function Groups(){
         { !errorMessage &&
             <div>
                   
-            { groups.map(group => (
+            { groups.slice(0, 2).map(group => (
                 <div>
-                <GroupsPreview key={ "group-" + group.groupId } group={ group }/>
+                <GroupsForHomePreview key={ "group-" + group.groupId } group={ group }/>
                 
                 </div>
                 )) }
@@ -37,8 +38,8 @@ export default function Groups(){
 
             } 
             
-            <div className="centarr">
-                <Link type="button" className="btn btn-secondary btn-lg" to={"/addgroup"}>Add a new group</Link>
+            <div className="centarrr">
+                <Link type="button" className="btn btn-secondary btn-lg" to={"/groups"}>See all groups</Link>
             </div> 
              
         </div>  

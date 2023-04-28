@@ -47,6 +47,7 @@ const AddMatchSchema = {
             type: "number"
         },
         date:{
+            
            
         },
         stadiumId: {
@@ -60,8 +61,7 @@ const AddMatchSchema = {
         "firstTeam",
         "secondTeam",
         "date",
-        "stadiumId",
-        "isSurrendered"
+        "stadiumId"
     ],
     additionalProperties: false
 }

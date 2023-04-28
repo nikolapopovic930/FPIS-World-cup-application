@@ -23,14 +23,16 @@ abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IA
     }
 
     abstract tableName(): string;
+    abstract sortFildName(): string;
 
     protected abstract adaptToModel(data: any, options: IAdapterOptions): Promise<ReturnModel>;
 
     public getAll(options: AdapterOptions): Promise<ReturnModel[]> {
         return new Promise<ReturnModel[]>((resolve, reject) => {
             const tableName = this.tableName();
+            const sortFildName = this.sortFildName();
 
-            const sql: string = `SELECT * FROM \`${tableName}\`;`;
+            const sql: string = `SELECT * FROM \`${tableName}\` ORDER BY \`${ sortFildName }\` asc;`;
             this.db.execute(sql)
                 .then(async ([rows]) => {
 
@@ -150,7 +152,10 @@ abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IA
                     resolve(newItem);
                 })
                 .catch(error => {
+                    if (error.code === 'ER_DUP_ENTRY') {
+                    error.message = "This item already exists!";
                     reject(error);
+                    }
                 })
         })
     }
@@ -185,7 +190,10 @@ abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IA
                     resolve(item);
                 })
                 .catch(error => {
+                    if (error.code === 'ER_DUP_ENTRY') {
+                    error.message = "This item already exists!";
                     reject(error);
+                    }
                 })
 
         });

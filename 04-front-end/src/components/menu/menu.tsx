@@ -16,6 +16,7 @@ export default function Menu() {
                     
                     <Link className="nav-item nav-link" to="/groups"><h4><b>GROUPS</b></h4></Link>
                     <Link className="nav-item nav-link" to="/matches"><h4><b>MATCHES</b></h4></Link>
+                    <Link className="nav-item nav-link" to="/scheduleamatch"><h4><b>SCHEDULE A MATCH</b></h4></Link>
                     <Link className="nav-item nav-link" to="/stadium"><h4><b>STADIUMS</b></h4></Link>
                     
                     </ul>

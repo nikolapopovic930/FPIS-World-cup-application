@@ -9,18 +9,19 @@
 .table-div {
 	justify-content: center;
 	display: flex;
-	padding-bottom: 50px;
+	padding-bottom: 30px;
 	
 }
 
 th, td {
     padding: 10px;
+	text-align: center;
 }
 
 th{
 	background-color: #7F1431;;
 	color: white;
-	padding-left: 45px;
+	padding-left: 33px;
 }
 
 
@@ -48,4 +49,47 @@ table .col{
 
 img {
 	display: block;
+	
+}
+
+.icons {
+	width: 40px;
+	height: 40px;
+}
+
+.name {
+	padding-left: 40%;
+}
+
+.plus-img {
+	width: 25px;
+	height: 25px;
+}
+.plus {
+	padding-left: 47%;
+}
+
+.centarr {
+    padding-left: 42.7%;
+	background-color: white;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.centarrr {
+	padding-left: 45.5%;
+	background-color: white;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.namee {
+	padding-left: 45.5%;
+}
+
+.iconsforgroup {
+	width: 20px;
+	height: 20px;
+	
+	display: inline-block;
 }

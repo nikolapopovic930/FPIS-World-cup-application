@@ -22,6 +22,10 @@ class MatchService extends BaseService<MatchModel, IMatchAdapterOptions>{
         return "match";
     }
 
+    sortFildName(): string {
+        return "match_id";
+    }
+
     protected async adaptToModel(data: any, options:IMatchAdapterOptions): Promise<MatchModel> {
         const match: MatchModel = new MatchModel();
 

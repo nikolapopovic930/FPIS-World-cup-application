@@ -19,6 +19,10 @@ class StadiumService extends BaseService<StadiumModel, IStadiumAdapterOptions>{
         return "stadium";
     }
 
+    sortFildName(): string {
+        return "stadium_id";
+    }
+
     protected async adaptToModel(data: any): Promise<StadiumModel> {
         const stadium: StadiumModel = new StadiumModel();
 

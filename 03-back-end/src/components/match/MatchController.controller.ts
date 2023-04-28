@@ -3,12 +3,14 @@ import { Request, Response } from 'express';
 import { AddMatchValidator, IAddMatchDto } from './dto/IAddMatchDto.dto';
 import { EditMatchValidator, IEditMatchDto } from './dto/IEditMatchDto.dto';
 import BaseController from '../../common/BaseController';
+import MatchModel from './MatchModel.model';
 class MatchController extends BaseController {
 
     async getAll(req: Request, res: Response) {
 
         this.services.match.getAll({loadTeamsData:true, loadStadiumData: true})
             .then(result => {
+                result.sort((a: MatchModel, b: MatchModel) => {if (a.date > b.date) return -1; else return 1 })
                 res.send(result);
             }).catch(error => {
                 res.status(500).send(error?.message);

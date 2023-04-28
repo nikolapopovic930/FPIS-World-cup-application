@@ -1,10 +1,13 @@
 import Corousel from '../../Corousel/Corousel';
-import Matches from '../../Matches/Matches';
+import GroupsForHome from '../../Groups/GroupsForHome';
+import MatchesForHome from '../../Matches/MatchesForHome';
 export default function Home(){
 
 return (
     <div>
-    <Corousel />
+    <Corousel/>
+    <MatchesForHome/>
+    <GroupsForHome/>
     
     </div>
 )

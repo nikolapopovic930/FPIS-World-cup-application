@@ -1,8 +1,8 @@
-import ITeam from "./ITeam.model"
+import ITeamDetailedModel from "./ITeamDetailed.model"
 
 export default interface IGroup {
     groupId: number,
     name: string
 
-    teams: ITeam[]
+    teams: ITeamDetailedModel[]
 }
