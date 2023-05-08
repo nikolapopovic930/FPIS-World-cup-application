@@ -155,7 +155,10 @@ abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IA
                     if (error.code === 'ER_DUP_ENTRY') {
                     error.message = "This item already exists!";
                     reject(error);
+                    
                     }
+                    console.log(error);
+                    reject(error);
                 })
         })
     }
@@ -194,6 +197,7 @@ abstract class BaseService<ReturnModel extends IModel, AdapterOptions extends IA
                     error.message = "This item already exists!";
                     reject(error);
                     }
+                    reject(error);
                 })
 
         });

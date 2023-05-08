@@ -44,11 +44,11 @@ class MatchController extends BaseController {
         this.services.match.add({
             first_team: data.firstTeam,
             second_team: data.secondTeam,
-            first_team_goals: data.firstTeamGoals,
-            second_team_goals: data.secondTeamGoals,
+           // first_team_goals: data.firstTeamGoals,
+           // second_team_goals: data.secondTeamGoals,
             date: data.date,
             stadium_id: data.stadiumId,
-            is_surrendered: data.isSurrendered
+            //is_surrendered: data.isSurrendered
         })
             .then(result => {
                 res.send(result);
@@ -74,12 +74,12 @@ class MatchController extends BaseController {
                 }
 
                 this.services.match.editById(id, {
-                    first_team: data.firstTeam,
-                    second_team: data.secondTeam,
+                  //  first_team: data.firstTeam,
+                  //  second_team: data.secondTeam,
                     first_team_goals: data.firstTeamGoals,
                     second_team_goals: data.secondTeamGoals,
-                    date: data.date,
-                    stadium_id: data.stadiumId,
+                  //  date: data.date,
+                  //  stadium_id: data.stadiumId,
                     is_surrendered: data.isSurrendered,
                     
                 })

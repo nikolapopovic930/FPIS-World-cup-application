@@ -10,7 +10,6 @@ export interface IGroupPreviewProperties {
 
 export default function GroupsPreview(props: IGroupPreviewProperties) {
 
-    props.group.teams.forEach(t => console.log("data.name : " + props.group.name + ": teams : " + t.name));
     
     return (
 
@@ -27,6 +26,7 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
 						<tr className="col">
 							<th>#</th>
 							<th>Team</th>
+							<th></th>
 							<th>GP</th>
 							<th>W</th>
 							<th>D</th>
@@ -39,7 +39,8 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
 						{props.group.teams.map((team, index) => (
 							<tr key={team.teamId}>
 								<td>{index + 1}</td>
-								<td>{team.name}<img className="iconsforgroup" src={"images/icons/" + team.name.toLowerCase().split(' ').join('') +".png"} alt = "flag"/></td>
+								<td>{team.name}</td>
+								<td><img className="iconsforgroup" src={"images/icons/" + team.name.toLowerCase().split(' ').join('') +".png"} alt = "flag"/></td>
 								<td>{team.gamesPlayed}</td>
 								<td>{team.wins}</td>
 								<td>{team.draws}</td>

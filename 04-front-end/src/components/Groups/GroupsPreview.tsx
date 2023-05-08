@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import IGroup from "../../models/IGroup.model";
 import './GroupsPreview.scss';
 import axios from "axios";
+import { useState } from "react";
 
 export interface IGroupPreviewProperties {
     group: IGroup;
@@ -16,6 +17,8 @@ const handleDeleteGroup = async (groupId: number) => {
     }
 };
 
+
+
 const handleDeleteTeam = async (teamId: number) => {
     try {
         await axios.delete(`http://localhost:10000/api/team/${teamId}`);
@@ -25,9 +28,24 @@ const handleDeleteTeam = async (teamId: number) => {
     }
 };
 
+
+
 export default function GroupsPreview(props: IGroupPreviewProperties) {
 
-    props.group.teams.forEach(t => console.log("data.name : " + props.group.name + ": teams : " + t.name));
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const { teams } = props.group;
+  const isFull = teams.length === 4;
+
+  const handleAddTeam = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (isFull) {
+      setErrorMessage("This group already has 4 teams.");
+	  setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+	}
+  };
     
     return (
 
@@ -66,7 +84,7 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
 								<td>{team.losses}</td>
 								<td>{team.goalDifference}</td>
 								<td>{team.points}</td>
-								<td><Link to={"/"}><img className="icons" src="images/edit.png" alt="Edit"/></Link></td>
+								<td><Link to={`/editteam/${team.teamId}`}><img className="icons" src="images/edit.png" alt="Edit"/></Link></td>
 								<td><img className="icons" src="images/delete.png" alt="Delete" onClick={() => handleDeleteTeam(team.teamId).then(() => window.location.reload())}/></td>
 								
 							</tr>
@@ -76,11 +94,13 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
 					</tbody>
 				</table>
 			</div>
-			<div className="plus">
-			<Link to={`/addteamingroup/${props.group.groupId}`}><img className="plus-img" src="images/plus.png" alt="Add"/></Link>
-			</div>                
-        </div>  
-    
+		
+                <div className="plus">
+				<Link to={`/addteamingroup/${props.group.groupId}`} onClick={handleAddTeam}><img className="plus-img" src="images/plus.png" alt="Add"/></Link>
+				
+                </div>
+				<span className="groupError">{errorMessage}</span>
+           
+        </div>
     );
-
 }

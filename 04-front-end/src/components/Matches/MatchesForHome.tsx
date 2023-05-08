@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import IMatch from '../../models/IMatch.model';
-import MatchesPreview from "./MatchesPreview";
 import { Link } from "react-router-dom";
+import MatchesForHomePreview from "./MatchesForHomePreview";
 
 export default function MatchesForHome(){
     const [ matches, setMatches ] = useState<IMatch[]>([]);
@@ -25,7 +25,7 @@ export default function MatchesForHome(){
             <div>   
             { matches.slice(0, 4).map(match => (
                 <div>
-                <MatchesPreview key={ "match-" + match.matchId } match={ match }/>
+                <MatchesForHomePreview key={ "match-" + match.matchId } match={ match }/>
                 </div>
                 )) }
             </div>

@@ -14,21 +14,21 @@ ajv.addFormat('custom-date-time', function (dateTimeString: any) {
 interface IAddMatchDto {
     firstTeam: number;
     secondTeam: number;
-    firstTeamGoals: number;
-    secondTeamGoals: number;
+    //firstTeamGoals: number;
+    //secondTeamGoals: number;
     date: Date;
     stadiumId: number;
-    isSurrendered: number;
+    //isSurrendered: number;
 }
 
 interface IAddMatch extends IServiceData {
     first_team: number;
     second_team: number;
-    first_team_goals: number;
-    second_team_goals: number;
+    //first_team_goals: number;
+    //second_team_goals: number;
     date: Date;
     stadium_id: number;
-    is_surrendered: number;
+    //is_surrendered: number;
 }
 
 const AddMatchSchema = {
@@ -40,20 +40,11 @@ const AddMatchSchema = {
         secondTeam: {
             type: "number"
         },
-        firstTeamGoals: {
-            type: "number"
-        },
-        secondTeamGoals: {
-            type: "number"
-        },
         date:{
             
            
         },
         stadiumId: {
-            type: "number"
-        },
-        isSurrendered: {
             type: "number"
         },
     },

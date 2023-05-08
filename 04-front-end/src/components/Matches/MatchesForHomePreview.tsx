@@ -1,14 +1,13 @@
 import './MatchesPreview.scss';
 import IMatch from '../../models/IMatch.model';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export interface IMatchPreviewProperties {
     match: IMatch;
 }
 
 
-export default function MatchesPreview(props: IMatchPreviewProperties) {
+export default function MatchesForHomePreview(props: IMatchPreviewProperties) {
 
     function getDateFromISO(date: string): string {
         
@@ -51,7 +50,7 @@ export default function MatchesPreview(props: IMatchPreviewProperties) {
                         
                         <div className="match-score">
                         
-                        {props.match.firstTeamGoals !== null || props.match.secondTeamGoals !== null ?
+                        {props.match.firstTeamGoals !== null && props.match.secondTeamGoals !== null ?
                         <React.Fragment>
                         <span className={"match-score-number " + (props.match.firstTeamGoals > props.match.secondTeamGoals ? 'match-score-number--leading' : '') }>{props.match.firstTeamGoals}</span>
                         <span className="match-score-divider"> : </span>
@@ -68,11 +67,6 @@ export default function MatchesPreview(props: IMatchPreviewProperties) {
                         </div>
                         <div className="match-referee">
                         <strong>{props.match.stadiumData.name}</strong>
-                        {props.match.firstTeamGoals === null || props.match.secondTeamGoals === null ?
-                        <Link to={`/addresultinmatch/${props.match.matchId}`}><img className="iconsForMatch" src="images/edit.png" alt="Edit"/></Link>
-                        :
-                        null
-                        }
                         </div>
                     </div>
                 </div>
@@ -98,4 +92,3 @@ export default function MatchesPreview(props: IMatchPreviewProperties) {
     );
 
 }
-

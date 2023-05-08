@@ -12,54 +12,55 @@ ajv.addFormat('custom-date-time', function (dateTimeString: any) {
 });
 
 interface IEditMatchDto {
-    firstTeam: number;
-    secondTeam: number;
+    //firstTeam: number;
+    //secondTeam: number;
     firstTeamGoals: number;
     secondTeamGoals: number;
-    date: Date;
-    stadiumId: number;
+    //date: Date;
+    //stadiumId: number;
     isSurrendered: number;
 }
 
 interface IEditMatch extends IServiceData {
-    first_team: number;
-    second_team: number;
+    //first_team: number;
+    //second_team: number;
     first_team_goals: number;
     second_team_goals: number;
-    date: Date;
-    stadium_id: number;
+    //date: Date;
+    //stadium_id: number;
     is_surrendered: number;
 }
 
 const EditMatchSchema = {
     type: "object",
     properties: {
-        firstTeam: {
+    /*    firstTeam: {
             type: "number"
-        },
+        }, 
         secondTeam: {
             type: "number"
         },
+        */
         firstTeamGoals: {
             type: "number"
         },
         secondTeamGoals: {
             type: "number"
         },
-        date: {
+    /*    date: {
 
         },
         stadiumId: {
             type: "number"
         },
+        */
         isSurrendered: {
             type: "number"
         },
     },
     required: [
-        "firstTeam",
-        "secondTeam",
-        "stadiumId",
+        "firstTeamGoals",
+        "secondTeamGoals",
         "isSurrendered"
     ],
     additionalProperties: false

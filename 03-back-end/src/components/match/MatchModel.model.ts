@@ -7,9 +7,9 @@ class MatchModel implements IModel {
     matchId: number;
     firstTeam: number;
     secondTeam: number;
-    firstTeamGoals: number;
-    secondTeamGoals: number;
-    date: Date;
+    firstTeamGoals: number | null;
+    secondTeamGoals: number | null;
+    date: Date ;
     stadiumId: number;
     isSurrendered: number;
 

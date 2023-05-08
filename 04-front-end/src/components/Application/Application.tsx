@@ -10,6 +10,8 @@ import ScheduleAMatch from '../ScheduleAMatch/ScheduleAMatch';
 import AddGroup from '../Groups/AddGroup';
 import EditGroup from '../Groups/EditGroup';
 import AddTeamInGroup from '../Groups/AddTeamInGroup';
+import EditTeamInGroup from '../Groups/EditTeamInGroup';
+import AddResultInMatch from '../Matches/AddResultInMatch';
 
 function Application() {
   return (
@@ -28,6 +30,13 @@ function Application() {
         <Route path="/addgroup" element= { <AddGroup /> }/>
         <Route path="/editgroup/:group_id" element={<EditGroup />} />
         <Route path="/addteamingroup/:group_id" element={<AddTeamInGroup />} />
+        <Route path="/editteam/:team_id" element={<EditTeamInGroup />} />
+        <Route path="/addresultinmatch/:match_id" element={<AddResultInMatch />} />
+        
+
+
+
+        
 
 
 

@@ -32,8 +32,8 @@ class MatchService extends BaseService<MatchModel, IMatchAdapterOptions>{
         match.matchId = +data?.match_id;
         match.firstTeam = +data?.first_team;
         match.secondTeam = +data?.second_team;
-        match.firstTeamGoals = +data?.first_team_goals;
-        match.secondTeamGoals = +data?.second_team_goals;
+        match.firstTeamGoals = data?.first_team_goals;
+        match.secondTeamGoals = data?.second_team_goals;
         match.date = data?.date;
         match.stadiumId = +data?.stadium_id;
         match.isSurrendered = +data?.is_surrendered;
@@ -56,6 +56,7 @@ class MatchService extends BaseService<MatchModel, IMatchAdapterOptions>{
     }
 
     public async add(data: IAddMatch): Promise<MatchModel> {
+        console.log('Usao');
         return this.baseAdd(data, DefaultMatchAdapterOptions);
     }
 

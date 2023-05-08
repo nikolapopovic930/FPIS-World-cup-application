@@ -68,7 +68,7 @@ class TeamController extends BaseController {
 
                 this.services.team.editById(id, {
                     name: data.name,
-                    group_id: data.groupId
+                   // group_id: data.groupId
                 })
                     .then(result => {
                         res.send(result);
