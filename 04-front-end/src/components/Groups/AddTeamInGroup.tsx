@@ -60,7 +60,7 @@ const AddTeamInGroup = () => {
         
         <p>{errorMessage}</p>
         <br/>
-      <button type="submit" className="btn btn-secondary btn-lg">Add a group</button>
+      <button type="submit" className="btn btn-secondary btn-lg">Add a team</button>
         <p>{successMessage}</p>
     </form>
 

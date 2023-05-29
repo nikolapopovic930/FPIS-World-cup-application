@@ -3,6 +3,7 @@ import IGroup from "../../models/IGroup.model";
 import './GroupsPreview.scss';
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export interface IGroupPreviewProperties {
     group: IGroup;
@@ -35,7 +36,9 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { teams } = props.group;
-  const isFull = teams.length === 4;
+  const isFull = teams.length >= 4;
+
+  let navigate = useNavigate();
 
   const handleAddTeam = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -44,6 +47,8 @@ export default function GroupsPreview(props: IGroupPreviewProperties) {
 	  setTimeout(() => {
         setErrorMessage("");
       }, 3000);
+	} else {
+		navigate(`/addteamingroup/${props.group.groupId}`)
 	}
   };
     
